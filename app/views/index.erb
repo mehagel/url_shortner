@@ -4,10 +4,13 @@
 
 
   <form method='post' action='/urls'>
-    Cool URL: <Input type='word' name='long_url' placeholder='long url'><br><br>
+    Cool URL: <INPUT type="word" name='long_url' placeholder='long url'><br><br>
 
     <button>Submit Cool URL!</button>
     <br>
+    <%if @url.errors.full_messages.any? %>
+      <%= @url.errors.messages[:long_url][0] %>
+    <% end %>
   </form>
 
  

@@ -1,17 +1,24 @@
 get '/' do
+  @url = Url.new
   # let user create new short URL, display a list of shortened URLs
   erb :index
 end
 
 post '/urls' do 
-  @url = Url.create!(params)
-  short_url = '' 
-  6.times do 
-     short_url << ('A'..'Z').to_a.sample 
+  @url = Url.new(params)
+
+  if @url.valid? == false
+    erb :index 
+  else
+    short_url = '' 
+    6.times do 
+       short_url << ('A'..'Z').to_a.sample 
+    end
+    @url.short_url = short_url
+    @url.save
+    erb :short_url
   end
-  @url.short_url = short_url
-  @url.save
-  erb :short_url
+
 end
 
 # e.g., /q6bda
